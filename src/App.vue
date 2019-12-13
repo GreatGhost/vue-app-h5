@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<mt-button size="small">small</mt-button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { Button } from 'mint-ui';
+import Vue from 'vue';
+Vue.component(Button.name, Button);
 export default {
   name: 'app',
   components: {
-    HelloWorld
   }
 }
 </script>
