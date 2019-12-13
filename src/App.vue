@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view v-wechat-title='$route.meta.title' />
   </div>
 </template>
 
 <script>
-  import {
-    Button
-  } from 'mint-ui';
-  import Vue from 'vue';
-  Vue.component(Button.name, Button);
   export default {
     name: 'app',
     components: {}
