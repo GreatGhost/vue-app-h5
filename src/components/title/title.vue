@@ -1,19 +1,17 @@
 <!--  -->
 <template>
-    <div class="login">
-        <ComponentA />
+    <div class='title'>
+        <div class="header-title">{{$route.meta.title}}</div>
     </div>
 </template>
 
 <script>
     //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
     //例如：import 《组件名称》 from '《组件路径》';
-    import ComponentA from '../../components/componentA/componentA'
+
     export default {
         //import引入的组件需要注入到对象中才能使用
-        components: {
-            ComponentA
-        },
+        components: {},
         data() {
             //这里存放数据
             return {
@@ -21,9 +19,7 @@
             };
         },
         //监听属性 类似于data概念
-        computed: {
-
-        },
+        computed: {},
         //监控data中的数据变化
         watch: {},
         //方法集合
@@ -36,6 +32,7 @@
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
+
         },
         beforeCreate() {}, //生命周期 - 创建之前
         beforeMount() {}, //生命周期 - 挂载之前
@@ -48,14 +45,17 @@
 </script>
 <style lang='less' scoped>
     //@import url(); 引入公共css类
-    .login{
-        padding-top:3.5rem;
-        .user-icon{
-            width:4.5rem;
-            height:4.5rem;
-            border-radius: 50%;
-            background: rgb(43, 101, 141);
-            margin:0 auto;
+    .title{
+        padding-top:.26rem;
+        padding-bottom: .26rem;
+        background: #fff;
+        .header-title{
+            text-align: center;
+        font-size:0.34rem;
+        font-family:PingFangSC-Semibold,PingFang SC;
+        font-weight:600;
+        color:rgba(0,0,0,1);
+        line-height:.34rem;
         }
     }
 </style>

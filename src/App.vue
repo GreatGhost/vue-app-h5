@@ -1,24 +1,25 @@
 <template>
   <div id="app">
-    <router-view v-wechat-title='$route.meta.title' />
+    <Title />
+    <router-view/>
   </div>
 </template>
 
 <script>
+  import Title from './components/title/title';
+
   export default {
     name: 'app',
-    components: {}
+    components: {
+      Title
+    },
+    created(){
+      console.log(this);
+    }
   }
 </script>
 
 <style>
 @import url('./style/common.less');
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+
 </style>
