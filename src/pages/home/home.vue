@@ -1,6 +1,8 @@
 <!--  -->
 <template>
-<div class=''></div>
+<div class=''>
+     <button @click="handleOpen1">打开提示 2</button>
+</div>
 </template>
 
 <script>
@@ -22,7 +24,11 @@ computed: {},
 watch: {},
 //方法集合
 methods: {
-
+      handleOpen1 () {
+        this.$Alert.info({
+          content: '我是提示信息 1'
+        });
+      },
 },
 //生命周期 - 创建完成（可以访问当前this实例）
 created() {

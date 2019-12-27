@@ -1,7 +1,7 @@
 <!--  -->
 <template>
     <div class='title'>
-        <div class="header-title">{{$route.meta.title}}</div>
+         
     </div>
 </template>
 
@@ -24,7 +24,9 @@
         watch: {},
         //方法集合
         methods: {
-
+            print(){
+                console.log('hello world')
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
