@@ -5,11 +5,12 @@
         <div class="login-desc">未注册过的手机号将自动</div>
         <Form>
             <FormItem v-for="(item,index) in loginList" :key="index" :name="item.name">
-                <InputItem :input="item">
-                    <div slot="code" @input="loginInput" v-if="item.id==='mobile'" class="send-code" :class="[item.isValid?'enabled':'']">获取验证码</div>
+                <InputItem :input="item" @input="loginInput">
+                    <div slot="code" v-if="item.id==='mobile'" class="send-code" :class="[item.isValid?'enabled':'']">获取验证码</div>
                 </InputItem>
             </FormItem>
         </Form>
+        <div class="login-btn"></div>
     </div>
 </template>
 
@@ -30,8 +31,8 @@
             //这里存放数据
             return {
                 loginList:[
-                    {name:'',id:'mobile',placeholder:'请输入手机号',value:'',type:'number'},
-                    {name:'',id:'code',placeholder:'请输入验证码',value:'',type:'number'},
+                    {name:'',id:'mobile',placeholder:'请输入手机号',value:'',type:'tel',isValid:false,max:11},
+                    {name:'',id:'code',placeholder:'请输入验证码',value:'',type:'tel',max:4},
                 ],
             };
         },
@@ -44,7 +45,17 @@
         //方法集合
         methods: {
             loginInput(e){
-                console.log(e);
+                let loginList=this.loginList;
+                loginList.forEach(tmp=>{
+                    if(tmp.id===e.id){
+                        tmp.value=e.value;
+                        if(this.$util.checkStr(tmp.value,'phone') && tmp.id==='mobile'){
+                            tmp.isValid=true;
+                        }else if(!this.$util.checkStr(tmp.value,'phone') && tmp.id==='mobile'){
+                             tmp.isValid=false;
+                        }
+                    }
+                })
             }
         },
         //生命周期 - 创建完成（可以访问当前this实例）

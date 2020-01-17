@@ -5,8 +5,9 @@ import router from './router/index'
 import store from './store/index'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-
-Vue.config.productionTip = false
+import util from './util/util';
+Vue.config.productionTip = false;
+Vue.prototype.$util=util;
 // 按需引入mint-ui
 Vue.use(MintUI)
 

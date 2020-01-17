@@ -140,5 +140,9 @@ class Util {
   isTrue(o) {
     return !this.isFalse(o)
   }
+  // 找到一个表单项目
+  findInputItem(list,id){
+    return list.find(tmp=>tmp.id===id);
+  }
 }
 export default new Util();
