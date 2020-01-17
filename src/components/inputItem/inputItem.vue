@@ -2,10 +2,7 @@
 <template>
     <div class='input-item'>
         <slot name="icon"></slot>
-        
-        <div class="input">
-            <input  :placeholder="input.placeholder" :value="input.value" />
-        </div>
+        <input class="input"  :placeholder="input.placeholder" :value="input.value" @input="inputChange($event,item)" />
         <slot name="code"></slot>
     </div>
 </template>
@@ -36,7 +33,11 @@
         watch: {},
         //方法集合
         methods: {
-
+            inputChange(e,item){
+                let value=e.target.value;
+                Object.assign(item,{value:value})
+                this.$emit('input',item)
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
@@ -58,15 +59,49 @@
 <style lang='less' scoped>
     //@import url(); 引入公共css类
     .input-item{
+        width:100%;
+        position: relative;
+        display: flex;
+        &::after{
+            position: absolute;
+            height: 1px;
+            content: " ";
+            bottom: 0;
+            left: 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            width:100%;
+            background: #e4e6f0;
+        }
         .input{
-            font-size:0.15rem;
+            flex:1;
+            width:100%;
+            display: block;
+            height: 1.24rem;
+            border:none;
+            outline:none;
+            font-size:0.32rem;
             font-weight:400;
-            color:rgba(204,204,204,1);
-            line-height:0.21rem;
+            line-height:1.24rem;
             input::-webkit-input-placeholder {
                 color:rgba(204,204,204,1);
 
             }
+            &:focus{
+                outline: none;
+            }
+            
+        }
+        .send-code{
+            position: absolute;
+            right: 0;
+            width:1.6rem;
+            height: 1.24rem;
+            top:0;
+            background: #fff;
+            line-height: 1.24rem;
+            color: #ccc;
+            font-size: .32rem;
         }
     }
 </style>
