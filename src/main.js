@@ -6,10 +6,13 @@ import store from './store/index'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import util from './util/util';
+import {Toast} from 'mint-ui';
+
 Vue.config.productionTip = false;
 Vue.prototype.$util=util;
 // 按需引入mint-ui
 Vue.use(MintUI)
+Vue.prototype.$toast=Toast;
 
 new Vue({
   store,

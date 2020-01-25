@@ -24,6 +24,10 @@ export default new Router({
           meta: {title: '登录'},
         },  
 
-        
+          {
+          path: '/loginByPwd',
+          component: resolve => require(['../pages/loginByPwd/loginByPwd.vue'], resolve),
+          meta: {title: '登录'},
+        }, 
       ]
     })

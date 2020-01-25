@@ -22,7 +22,7 @@ class Util {
       formatTableData = val;
     }
     return formatTableData;
-  };
+  }
   //el-table表格数据的处理
   formatTableData(val) {
     //格式化数据，为空或0或null时，显示无
@@ -33,7 +33,7 @@ class Util {
       formatTableData = val;
     }
     return formatTableData;
-  };
+  }
   // 返回性别
   sexStatus(status) {
     if (!status) return
@@ -141,8 +141,43 @@ class Util {
     return !this.isFalse(o)
   }
   // 找到一个表单项目
-  findInputItem(list,id){
-    return list.find(tmp=>tmp.id===id);
+  findInputItem(list, id) {
+    return list.find(tmp => tmp.id === id);
   }
+
+
+  //节流throttle代码：
+  throttle(method, delay, duration) {
+    var that = this;
+    var timer = this.timer;
+    var begin = new Date().getTime();
+    return function () {
+      var current = new Date().getTime();
+      clearTimeout(timer);
+      if (current - begin >= duration) {
+        method();
+        begin = current;
+      } else {
+        that.timer = setTimeout(function () {
+          method();
+        }, delay);
+      }
+    };
+  }
+
+  //防抖debounce代码：
+  debounce(fn, delay) {
+    var timeout = null; // 创建一个标记用来存放定时器的返回值
+    return function () {
+      // 每当用户输入的时候把前一个 setTimeout clear 掉
+      clearTimeout(timeout);
+      // 然后又创建一个新的 setTimeout, 这样就能保证interval 间隔内如果时间持续触发，就不会执行 fn 函数
+      timeout = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, delay);
+    };
+  }
+
+
 }
 export default new Util();

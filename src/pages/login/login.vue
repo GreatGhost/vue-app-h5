@@ -6,11 +6,13 @@
         <Form>
             <FormItem v-for="(item,index) in loginList" :key="index" :name="item.name">
                 <InputItem :input="item" @input="loginInput">
-                    <div slot="code" v-if="item.id==='mobile'" class="send-code" :class="[item.isValid?'enabled':'']">获取验证码</div>
+                    <div slot="code" @click="sendCode" v-if="item.id==='mobile'" class="send-code"
+                        :class="[item.isValid?'enabled':'']">{{btnTitle}}</div>
                 </InputItem>
             </FormItem>
         </Form>
-        <div class="login-btn"></div>
+        <div class="login-btn" :class="[isLoginValid?'active':'']">登录</div>
+        <router-link :to="{path:'/loginByPwd'}" tag="div" class="login-by-pwd">账号密码登录</router-link>
     </div>
 </template>
 
@@ -30,41 +32,93 @@
         data() {
             //这里存放数据
             return {
-                loginList:[
-                    {name:'',id:'mobile',placeholder:'请输入手机号',value:'',type:'tel',isValid:false,max:11},
-                    {name:'',id:'code',placeholder:'请输入验证码',value:'',type:'tel',max:4},
+                loginList: [{
+                        name: '',
+                        id: 'mobile',
+                        placeholder: '请输入手机号',
+                        value: '',
+                        type: 'tel',
+                        isValid: false,
+                        max: 11
+                    },
+                    {
+                        name: '',
+                        id: 'code',
+                        placeholder: '请输入验证码',
+                        value: '',
+                        type: 'tel',
+                        max: 4
+                    },
                 ],
+                btnTitle:'获取验证码'
             };
         },
         //监听属性 类似于data概念
         computed: {
-
+            isLoginValid(){
+                let mobile=this.$util.findInputItem(this.loginList,'mobile');
+                let code=this.$util.findInputItem(this.loginList,'code');
+                return this.$util.checkStr(mobile.value,'phone') &&code.value.length==4
+            }
         },
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
-            loginInput(e){
-                let loginList=this.loginList;
-                loginList.forEach(tmp=>{
-                    if(tmp.id===e.id){
-                        tmp.value=e.value;
-                        if(this.$util.checkStr(tmp.value,'phone') && tmp.id==='mobile'){
-                            tmp.isValid=true;
-                        }else if(!this.$util.checkStr(tmp.value,'phone') && tmp.id==='mobile'){
-                             tmp.isValid=false;
+
+            /* 登录表单变化 */
+            loginInput(e) {
+                let loginList = this.loginList;
+                loginList.forEach(tmp => {
+                    if (tmp.id === e.id) {
+                        tmp.value = e.value;
+                        if (this.$util.checkStr(tmp.value, 'phone') && tmp.id === 'mobile') {
+                            tmp.isValid = true;
+                        } else if (!this.$util.checkStr(tmp.value, 'phone') && tmp.id === 'mobile') {
+                            tmp.isValid = false;
                         }
                     }
                 })
-            }
+            },
+            /*获取验证码 */
+            sendCode() {
+                let that=this;
+                this.$util.throttle(function(){
+                let value = that.$util.findInputItem(that.loginList, 'mobile').value;
+                if (!that.$util.checkStr(value, 'phone')) {
+                    that.$toast({
+                        message: "请输入有效手机号",
+                        position: "center",
+                        duration: 1000
+                    })
+                    return;
+                }else {
+                     let time = 60;
+                        let timer = setInterval(() => {
+                        if(time == 0) {
+                            clearInterval(timer);
+                            that.disabled = false;
+                            that.btnTitle = "获取验证码";
+                        } else {
+                            that.btnTitle =time + '秒后重试';
+                            that.disabled = true;
+                            time--
+                        }
+                        },1000)
+                }
+                },500,1000)();
+                
+            },
+
+            // 
+
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
 
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
-        mounted() {
-        },
+        mounted() {},
         beforeCreate() {}, //生命周期 - 创建之前
         beforeMount() {}, //生命周期 - 挂载之前
         beforeUpdate() {}, //生命周期 - 更新之前
@@ -76,19 +130,45 @@
 </script>
 <style lang='less' scoped>
     //@import url(); 引入公共css类
-    .login{
-        padding:.5rem;
+    .login {
+        padding: .5rem;
         background: #fff;
-        .login-title{
+
+        .login-title {
             margin-bottom: .24rem;
             font-weight: 700;
             font-size: .56rem;
         }
-        .login-desc{
+
+        .login-desc {
             font-size: .32rem;
-            line-height:.4rem;
+            line-height: .4rem;
             color: #999;
             margin-bottom: .36rem;
+        }
+        .login-btn{
+            width:6.50rem;
+            height:1rem;
+            background:#f2f2f2;
+            margin-top:.48rem;
+            color: #fff;
+            text-align: center;
+            line-height: 1rem;
+            font-size:.36rem;
+            font-weight: 700;
+            border-radius:.1rem;
+            transition:all .2s ease-in;
+            &.active{
+                background:#3072f6;
+            }
+        }
+        .login-by-pwd{
+            font-size: .28rem;
+            text-align: center;
+            margin-top:.4rem;
+        }
+        .login-user-protocol{
+            
         }
     }
 </style>
