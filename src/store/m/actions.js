@@ -5,3 +5,6 @@ export const incrementIfOddOnRootSum = ({ state, commit, rootState }) => {
     commit([types.SET_INCREMENT])
   }
 }
+export const setLoginUserInfo=(context)=>{
+  context.commit([types.SET_LOGIN_USER_INFO])
+}

@@ -36,7 +36,6 @@ export function get(url,params={}){
 
 export function post(url,params={}){
     return new Promise((resolve,reject)=>{
-        console.log(params)
         instance.post(url,{
             params:params,
         }).then(res=>{

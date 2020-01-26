@@ -11,7 +11,7 @@
                 </InputItem>
             </FormItem>
         </Form>
-        <div class="login-btn" :class="[isLoginValid?'active':'']">登录</div>
+        <div class="login-btn" :class="[isLoginValid?'active':'']" @click="login">登录</div>
         <router-link :to="{path:'/loginByPwd'}" tag="div" class="login-by-pwd">账号密码登录</router-link>
     </div>
 </template>
@@ -22,6 +22,7 @@
     import Form from '../../components/Form/Form'
     import FormItem from '../../components/FormItem/FormItem'
     import InputItem from '../../components/InputItem/InputItem'
+    import localStorage from '../../util/localStorage'
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {
@@ -110,7 +111,33 @@
                 
             },
 
-            // 
+            // 登录按钮
+            login(){
+                let isLoginValid=this.isLoginValid;
+                if(!isLoginValid){
+                    this.$toast({
+                        message: "请输入有效手机号和验证码",
+                        position: "center",
+                        duration: 1000
+                    })
+                    return;  
+                }
+                let data={
+                    username:'王菲',
+                    age:11,
+                    account:18968780961
+                }
+                 this.$store.commit('SET_LOGIN_USER_INFO', data);
+                 this.$util.setStore(localStorage.loginUserInfo,data);
+                 this.$toast({
+                      message: "登录成功",
+                        position: "center",
+                        duration: 1000
+                 })
+                 this.$router.replace({
+                     path:'/mine'
+                 })
+            }
 
         },
         //生命周期 - 创建完成（可以访问当前this实例）

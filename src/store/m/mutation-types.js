@@ -1,2 +1,2 @@
 export const SET_INCREMENT = 'increment'
-export const setUserInfo='user-info';
+export const SET_LOGIN_USER_INFO='login-user-info';
