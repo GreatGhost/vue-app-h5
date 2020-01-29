@@ -127,7 +127,7 @@
                     age:11,
                     account:18968780961
                 }
-                 this.$store.commit('SET_LOGIN_USER_INFO', data);
+                this.$store.commit('setUserInfo',data);
                  this.$util.setStore(localStorage.loginUserInfo,data);
                  this.$toast({
                       message: "登录成功",

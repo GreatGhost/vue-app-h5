@@ -21,7 +21,7 @@ export default new Router({
       },
     },
     {
-      path: '/',
+      path: '/login',
       component: resolve => require(['../pages/login/login.vue'], resolve),
       meta: {
         title: '登录'
@@ -40,6 +40,13 @@ export default new Router({
       component: resolve => require(['../pages/mine/mine.vue'], resolve),
       meta: {
         title: '我的'
+      },
+    },
+    {
+      path: '/  ',
+      component: resolve => require(['../pages/register/register.vue'], resolve),
+      meta: {
+        title: '注册'
       },
     },
   ]
