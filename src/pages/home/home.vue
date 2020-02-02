@@ -23,6 +23,52 @@
 
       <!--首页二手房统计  -->
       <CityTradeStatic />
+
+      <!--       <div class="scroll-list" v-infinite-scroll="loadingMore">
+        <input value="" placeholder="请输入内容" v-focus />
+        <div class="scroll-list-item" v-for="(item,index) in scollList" :key="index"></div>
+      </div> -->
+
+      <!--二手房列表 -->
+
+      <div class="second-hand-house-list">
+        <HomeListTile title="二手房·全城必看好房" tip="更多二手房" isShowMore="true" />
+        <div class="house-list">
+          <div class="second-hand-house-item" v-for="(item,index) in secondHandHoursesList" :key="index">
+            <CityHouseItem :info="item">
+              <div slot="card-title" class="card-title">{{item.cardTitle}}</div>
+              <div slot="focus" class="focus">{{item.focus}}</div>
+            </CityHouseItem>
+          </div>
+        </div>
+      </div>
+      <!-- end -->
+
+
+      <!-- 新房 -->
+      <div class="second-hand-house-list">
+        <HomeListTile title="新房·本周热门好盘" tip="更多在售楼盘" isShowMore="true" />
+        <div class="house-list">
+          <div class="second-hand-house-item" v-for="(item,index) in fisrtHandHoursesList" :key="index">
+            <CityHouseItem :info="item">
+              <div slot="house-name" class="house-name">{{item.name}}</div>
+              <div slot="house-area" class="house-area">{{item.houseArea}}</div>
+            </CityHouseItem>
+          </div>
+        </div>
+
+      </div>
+      <!-- end -->
+
+      <!-- 推荐二手房 -->
+<!--       <div class="recommend-second-house">
+        <HomeListTile title="为你推荐二手房" />
+        <div class="list">
+          <div class="item" v-for="() in "></div>
+        </div>
+      </div> -->
+      <!-- end -->
+
     </div>
 
   </div>
@@ -33,11 +79,15 @@
   //例如：import 《组件名称》 from '《组件路径》';
   import CitySearchInput from '../../components/citySearchInput/citySearchInput'
   import CityTradeStatic from '../../components/CityTradeStatic/CityTradeStatic'
+  import CityHouseItem from '../../components/CityHouseItem/CityHouseItem'
+  import HomeListTile from '../../components/HomeListTile/HomeListTile'
   export default {
     //import引入的组件需要注入到对象中才能使用
     components: {
       CitySearchInput,
-      CityTradeStatic
+      CityTradeStatic,
+      CityHouseItem,
+      HomeListTile
     },
     data() {
       //这里存放数据
@@ -102,26 +152,88 @@
             icon: 'https://ke-image.ljcdn.com/materials/appindexconf/d95c1eaa728a7ed1cfed4bfaad233588.png',
             path: ''
           },
-                    {
+          {
             name: '问答',
             icon: 'https://ke-image.ljcdn.com/materials/appindexconf/713ebe3ccb3ff470baf357c67e922d5a.png',
             path: ''
           },
-                    {
+          {
             name: '百科',
             icon: 'https://ke-image.ljcdn.com/materials/appindexconf/27a471a22d806eb260639eca4548df8c.png',
             path: ''
           },
-                    {
+          {
             name: '客服电话',
             icon: 'https://ke-image.ljcdn.com/materials/appindexconf/3f906230888f3a617ef4686bc688fb9c.png',
             path: ''
           },
-                    {
+          {
             name: '货贷计算',
             icon: 'https://ke-image.ljcdn.com/materials/appindexconf/e4f36dec85bb18ef1af55db70e9ce326.png',
             path: ''
           }
+        ],
+        secondHandHoursesList: [{
+            name: '',
+            city: '杭州',
+            district: '余杭',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_nZnsq7ND0_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '45万',
+            cardTitle: '2室1厅/54.06m²'
+          },
+          {
+            name: '',
+            city: '杭州',
+            district: '西湖',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_tr1Wd8vo9_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '162万',
+            cardTitle: '2室1厅/54.06m²'
+          },
+          {
+            name: '',
+            city: '杭州',
+            district: '余杭',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_tr1Wd8vo9_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '110万',
+            cardTitle: '2室1厅/54.06m²'
+          },
+        ],
+        fisrtHandHoursesList: [{
+            name: '雨润星雨华府',
+            city: '杭州',
+            district: '临安',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_nZnsq7ND0_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '45万',
+            cardTitle: '2室1厅/54.06m²',
+            houseArea: '218-410㎡'
+          },
+          {
+            name: '雨润星雨华府',
+            city: '杭州',
+            district: '西湖',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_tr1Wd8vo9_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '162万',
+            cardTitle: '2室1厅/54.06m²',
+            houseArea: '218-410㎡'
+          },
+          {
+            name: '雨润星雨华府',
+            city: '杭州',
+            district: '余杭',
+            thumbnail: 'https://ke-image.ljcdn.com/330100-inspection/pc1_tr1Wd8vo9_1.jpg!m_fill,w_210,h_164,f_jpg?from=ke.com',
+            focus: '156人关注此房',
+            price: '110万',
+            cardTitle: '2室1厅/54.06m²',
+            houseArea: '218-410㎡'
+          },
+        ],
+        scollList: [
+          1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
         ]
       };
     },
@@ -135,6 +247,16 @@
     methods: {
       test() {
         console.log('打发')
+      },
+      creatLi: function (el) {
+        return document.createElement(el);
+      },
+      loadingMore: function () {
+        if (this.scollList.length > 20) {
+          return;
+        }
+        let scollList = this.scollList;
+        this.scollList = scollList.concat([14, 11, 22, 344, 22, 33])
       },
       openApp() {
         //window.location.href = 'https://linkm.ke.com/?schema=lianjiabeike%253A%252F%252Fershoufang%252Fhome%253FcityID%253D330100&redirect_url=https%253A%252F%252Fitunes.apple.com%252Fcn%252Fapp%252F%25E8%25B4%259D%25E5%25A3%25B3%25E6%2589%25BE%25E6%2588%25BF-%25E4%25BA%258C%25E6%2589%258B%25E6%2596%25B0%25E6%2588%25BF%25E7%25A7%259F%25E6%2588%25BF%25E6%2589%25BE%25E6%2588%25BF%25E5%25A4%25A7%25E5%25B9%25B3%25E5%258F%25B0%252Fid1347663353%253Fl%253Dzh%2526ls%253D1%2526mt%253D8&ssid=&uuid=&refer=&ucid=&current_url=&sign=57f19c45987015881d2c151d82c1adb2'
@@ -221,29 +343,44 @@
   .home-page-content {
     padding: .24rem .48rem;
     background: #fff;
+
     .home-tab-list {
       display: flex;
       flex-wrap: wrap;
 
       .home-tab-item {
-        margin-bottom:.2rem;
-        margin-right:.32rem;
-          &:nth-child(5n+5){
-            margin-right:0;
-          }
-        .icon{
+        margin-bottom: .2rem;
+        margin-right: .32rem;
+
+        &:nth-child(5n+5) {
+          margin-right: 0;
+        }
+
+        .icon {
           display: block;
-          width:1.04rem;
+          width: 1.04rem;
           height: .72rem;
           margin: 0 auto;
         }
-        .tab-name{
+
+        .tab-name {
           font-size: .26rem;
           text-align: center;
-          font-weight:700;
+          font-weight: 700;
           line-height: 1;
-          margin-top:.2rem;
+          margin-top: .2rem;
         }
+      }
+    }
+
+    /* 二手房  */
+    .second-hand-house-list {
+      margin-top: .56rem;
+
+      .house-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
   }
