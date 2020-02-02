@@ -94,7 +94,6 @@ export default {
   .send-code {
     position: absolute;
     right: 0;
-    width: 1.6rem;
     height: 1.24rem;
     top: 0;
     background: #fff;

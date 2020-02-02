@@ -43,7 +43,7 @@ export default new Router({
       },
     },
     {
-      path: '/  ',
+      path: '/register',
       component: resolve => require(['../pages/register/register.vue'], resolve),
       meta: {
         title: '注册'

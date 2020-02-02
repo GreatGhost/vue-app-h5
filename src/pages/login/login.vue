@@ -2,7 +2,7 @@
 <template>
     <div class="login">
         <div class="login-title">手机快捷登录</div>
-        <div class="login-desc">未注册过的手机号将自动</div>
+        <div class="login-desc">未注册过的手机号将自动创建贝壳账号，经纪人不会看到您的手机号</div>
         <Form>
             <FormItem v-for="(item,index) in loginList" :key="index" :name="item.name">
                 <InputItem :input="item" @input="loginInput">
@@ -23,6 +23,8 @@
     import FormItem from '../../components/FormItem/FormItem'
     import InputItem from '../../components/InputItem/InputItem'
     import localStorage from '../../util/localStorage'
+    import {test}  from '../../config/service'
+
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {
@@ -66,7 +68,11 @@
         watch: {},
         //方法集合
         methods: {
-
+            test1(){
+                test().then(res=>{
+                    console.log(res)
+                })
+            },
             /* 登录表单变化 */
             loginInput(e) {
                 let loginList = this.loginList;
@@ -145,7 +151,9 @@
 
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
-        mounted() {},
+        mounted() {
+            this.test1();
+        },
         beforeCreate() {}, //生命周期 - 创建之前
         beforeMount() {}, //生命周期 - 挂载之前
         beforeUpdate() {}, //生命周期 - 更新之前

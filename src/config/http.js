@@ -1,7 +1,7 @@
 const axios =require('axios');
 import { Toast } from 'mint-ui';
+const baseUrl='http://localhost:3000' 
 axios.default.timeout=10000;
-axios.default.baseURL='http://localhost:3000/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 // 配置全局
@@ -26,9 +26,10 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
   });
 
-  
-function get(params){
+
+export function get(url,params){
     return new Promise((resolve,reject)=>{
+        url=baseUrl+url
         axios.get(url,{
             params:params
         }).then(res=>{
@@ -39,17 +40,14 @@ function get(params){
     })
 
 }
-function post (params={}){
+export function post(url,params={}){
     return new Promise((resolve,reject)=>{
+        url=baseUrl+url
+        console.log(url)
         axios.post(url,params).then(res=>{
             resolve(res)
         }).catch(err=>{
             reject(err)
         })
     })
-}
-
-module.exports={
-    get,
-    post
 }
