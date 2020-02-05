@@ -23,7 +23,11 @@
     import FormItem from '../../components/FormItem/FormItem'
     import InputItem from '../../components/InputItem/InputItem'
     import localStorage from '../../util/localStorage'
-    import {test}  from '../../config/service'
+    import {
+        test,
+        sendLoginCode,
+        loginByCode
+    } from '../../config/service'
 
     export default {
         //import引入的组件需要注入到对象中才能使用
@@ -53,23 +57,23 @@
                         max: 4
                     },
                 ],
-                btnTitle:'获取验证码'
+                btnTitle: '获取验证码'
             };
         },
         //监听属性 类似于data概念
         computed: {
-            isLoginValid(){
-                let mobile=this.$util.findInputItem(this.loginList,'mobile');
-                let code=this.$util.findInputItem(this.loginList,'code');
-                return this.$util.checkStr(mobile.value,'phone') &&code.value.length==4
+            isLoginValid() {
+                let mobile = this.$util.findInputItem(this.loginList, 'mobile');
+                let code = this.$util.findInputItem(this.loginList, 'code');
+                return this.$util.checkStr(mobile.value, 'phone') && code.value.length == 4
             }
         },
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
-            test1(){
-                test().then(res=>{
+            test1() {
+                test().then(res => {
                     console.log(res)
                 })
             },
@@ -89,60 +93,76 @@
             },
             /*获取验证码 */
             sendCode() {
-                let that=this;
-                this.$util.throttle(function(){
-                let value = that.$util.findInputItem(that.loginList, 'mobile').value;
-                if (!that.$util.checkStr(value, 'phone')) {
-                    that.$toast({
-                        message: "请输入有效手机号",
-                        position: "center",
-                        duration: 1000
-                    })
-                    return;
-                }else {
-                     let time = 60;
-                        let timer = setInterval(() => {
-                        if(time == 0) {
-                            clearInterval(timer);
-                            that.disabled = false;
-                            that.btnTitle = "获取验证码";
-                        } else {
-                            that.btnTitle =time + '秒后重试';
-                            that.disabled = true;
-                            time--
+                let that = this;
+                this.$util.throttle(function () {
+                    let value = that.$util.findInputItem(that.loginList, 'mobile').value;
+                    if (!that.$util.checkStr(value, 'phone')) {
+                        that.$toast({
+                            message: "请输入有效手机号",
+                            position: "center",
+                            duration: 1000
+                        })
+                        return;
+                    } else {
+                        let time = 60;
+                        let param = {
+                            mobile: value
                         }
-                        },1000)
-                }
-                },500,1000)();
-                
+                        sendLoginCode(param).then(res => {
+                            // console.log(res);
+                        })
+                        let timer = setInterval(() => {
+                            if (time == 0) {
+                                clearInterval(timer);
+                                that.disabled = false;
+                                that.btnTitle = "获取验证码";
+                            } else {
+
+                                that.btnTitle = time + '秒后重试';
+                                that.disabled = true;
+                                time--
+                            }
+                        }, 1000)
+                    }
+                }, 500, 1000)();
+
             },
 
             // 登录按钮
-            login(){
-                let isLoginValid=this.isLoginValid;
-                if(!isLoginValid){
+            login() {
+                let isLoginValid = this.isLoginValid;
+                if (!isLoginValid) {
                     this.$toast({
                         message: "请输入有效手机号和验证码",
                         position: "center",
                         duration: 1000
                     })
-                    return;  
+                    return;
                 }
-                let data={
-                    username:'王菲',
-                    age:11,
-                    account:18968780961
+                // let data={
+                //     username:'王菲',
+                //     age:11,
+                //     account:18968780961
+                // }
+                let loginList = this.loginList;
+                let param = {
+                    mobile: loginList[0].value,
+                    code: loginList[1].value
                 }
-                this.$store.commit('setUserInfo',data);
-                 this.$util.setStore(localStorage.loginUserInfo,data);
-                 this.$toast({
-                      message: "登录成功",
+                loginByCode(param).then(res => {
+                    console.log(res)
+                    this.$store.commit('setUserInfo', res.data.userInfo);
+                    this.$util.setStore(localStorage.loginUserInfo, res.data.userInfo);
+                    this.$toast({
+                        message: "登录成功",
                         position: "center",
                         duration: 1000
-                 })
-                 this.$router.replace({
-                     path:'/mine'
-                 })
+                    })
+                    this.$router.replace({
+                        path: '/mine'
+                    })
+                })
+
             }
 
         },
@@ -152,7 +172,7 @@
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
-            this.test1();
+
         },
         beforeCreate() {}, //生命周期 - 创建之前
         beforeMount() {}, //生命周期 - 挂载之前
@@ -181,29 +201,31 @@
             color: #999;
             margin-bottom: .36rem;
         }
-        .login-btn{
-            width:6.50rem;
-            height:1rem;
-            background:#f2f2f2;
-            margin-top:.48rem;
+
+        .login-btn {
+            width: 6.50rem;
+            height: 1rem;
+            background: #f2f2f2;
+            margin-top: .48rem;
             color: #fff;
             text-align: center;
             line-height: 1rem;
-            font-size:.36rem;
+            font-size: .36rem;
             font-weight: 700;
-            border-radius:.1rem;
-            transition:all .2s ease-in;
-            &.active{
-                background:#3072f6;
+            border-radius: .1rem;
+            transition: all .2s ease-in;
+
+            &.active {
+                background: #3072f6;
             }
         }
-        .login-by-pwd{
+
+        .login-by-pwd {
             font-size: .28rem;
             text-align: center;
-            margin-top:.4rem;
+            margin-top: .4rem;
         }
-        .login-user-protocol{
-            
-        }
+
+        .login-user-protocol {}
     }
 </style>

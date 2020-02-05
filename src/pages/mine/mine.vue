@@ -4,7 +4,7 @@
     <!-- 头部信息 -->
     <div class="login-user-info">
       <img :src="loginDefaultIcon" alt="" class="user-icon">
-      <div class="login-mobile" v-if="userInfo">欢迎您，{{userInfo.account|formatMobile}}</div>
+      <div class="login-mobile" v-if="userInfo">欢迎您，{{userInfo.mobile|formatMobile}}</div>
       <div class="no-login-wrapper" v-if="!userInfo">
         <router-link :to="{path:'/login'}" class="btn" tag="div">登录</router-link>
         <router-link :to="{path:'/register'}" class="btn" tag="div">注册</router-link>

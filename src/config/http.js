@@ -1,5 +1,5 @@
 const axios =require('axios');
-import { Toast } from 'mint-ui';
+import {Toast,Indicator} from 'mint-ui';
 const baseUrl='http://localhost:3000' 
 axios.default.timeout=10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -40,12 +40,21 @@ export function get(url,params){
     })
 
 }
-export function post(url,params={}){
+export function post(url,params){
     return new Promise((resolve,reject)=>{
-        url=baseUrl+url
-        console.log(url)
+        url=baseUrl+url;
+        Indicator.open('加载中')
         axios.post(url,params).then(res=>{
-            resolve(res)
+            Indicator.close()
+            if(res.data.code===200){
+                resolve(res)
+            }else{
+                Toast({
+                    message: res.data.msg,
+                    position: 'middle',
+                    duration: 5000
+                  });
+            }
         }).catch(err=>{
             reject(err)
         })

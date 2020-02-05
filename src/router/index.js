@@ -14,6 +14,13 @@ export default new Router({
   routes: [
     //默认路径下显示该路由
     {
+      path: '/',
+      component: resolve => require(['../pages/home/home.vue'], resolve),
+      meta: {
+        title: '首页'
+      },
+    },
+    {
       path: '/home',
       component: resolve => require(['../pages/home/home.vue'], resolve),
       meta: {

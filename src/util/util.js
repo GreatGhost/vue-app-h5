@@ -190,7 +190,7 @@ class Util {
    */
   setStore = (name, content) => {
     if (!name) return;
-    if (typeof content !== 'string') {
+    if (typeof content !== 'string'||typeof content !=='number') {
       content = JSON.stringify(content);
     }
     window.localStorage.setItem(name, content);
