@@ -33,13 +33,12 @@
     .CityHeaderSearch {
         display: flex;
         align-items: center;
-        padding: .24rem .6rem;
-        height: .6rem;
+        padding: .12rem .3rem;
         background: #fff;
         .back{
-            width:.8rem;
-            height: .8rem;
-            margin-right: .64rem;
+            width:.4rem;
+            height: .4rem;
+            margin-right: .32rem;
         }
         .input-wrapper{
             flex:1;
@@ -50,22 +49,23 @@
             background:rgb(51, 51, 51);
 
             .search-icon{
-                width:.64rem;
-                height:.64rem;
+                width:.32rem;
+                height:.32rem;
             }
             .clear-icon{
-                width:.6rem;
-                height:.6rem;
+                width:.3rem;
+                height:.3rem;
 
             }
             input{
                 flex:1;
-                height:1.2rem;
+                height:.6rem;
+                outline: none;
             }
         }
         .confirm{
             line-height: 1;
-            font-size: .64rem;
+            font-size: .32rem;
             color:rgb(48, 114, 246);
         }
     }

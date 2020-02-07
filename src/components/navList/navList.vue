@@ -35,21 +35,26 @@ export default {
     li{
        position: relative;
        flex:1;
-       height:.88rem;
-       line-height: .88rem;
-       font-size: .64rem;
+       height:.89rem;
+       line-height:.89rem;
+       font-size: .32rem;
        list-style-type:none;
        text-align: center;
        font-weight: 700;
+       box-sizing:border-box;
     }
     li.active::after{
+        content:'';
+        display:block;
         position: absolute;
         bottom: 0;
         left:50%;
-        height:.12rem;
-        width:.64rem;
+        height:.06rem;
+        width:.32rem;
         background:#3072F6;
         border:.06rem;
+        transform:translateX(-50%);
+        border-radius:.03rem;
     }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="selectCity">
         <CityHeaderSearch />
-        <navList :list="list" />
+        <navList :list="nav" />
     </div>
 </template>
 

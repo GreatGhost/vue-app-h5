@@ -56,5 +56,12 @@ export default new Router({
         title: '注册'
       },
     },
+    {
+      path: '/selectCity',
+      component: resolve => require(['../pages/selectCity/selectCity.vue'], resolve),
+      meta: {
+        title: '城市选择'
+      },
+    },
   ]
 })
