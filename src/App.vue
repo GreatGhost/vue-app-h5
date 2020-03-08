@@ -4,7 +4,10 @@
     //离开时所用的动画为lightSpeedOut
      //进入时，所需的时间animated -->
     <transition mode="out-in" name="fade">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <route-view v-if="!$route.meta.keepAlive"></route-view>
     </transition>
   </div>
 </template>

@@ -26,6 +26,19 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
   });
 
+function checkStatus(response){
+    if(response){
+        if(response.status===200||response.status===304){
+            return response.data;
+        }else if(response.status===401){
+            location.href='/login';
+        }else{
+            response.data;
+        }
+    }else{
+        throw new Error({data:'网络错误'});
+    }
+}
 
 export function get(url,params){
     return new Promise((resolve,reject)=>{

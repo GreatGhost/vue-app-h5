@@ -18,7 +18,6 @@
         }
         // 乘以100，px : rem = 100 : 1
         docEl.style.fontSize = 100 * (width / 750) + 'px';
-        console.log(docEl.style.fontSize);
     };
     recalc()
     if (!doc.addEventListener) return;
